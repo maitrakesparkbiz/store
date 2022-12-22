@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Product from '../../containers/product/product';
+import ProdictView from '../../containers/product/productView/ProductView';
 
 class ProductList extends Component{
 
     state = {
-        products: {}
+        products: {},
+        selectedID:""
     }
     
     componentDidMount(): void {
@@ -15,7 +17,6 @@ class ProductList extends Component{
                 this.setState({
                                 products: response.data
                             });     
-                                
             }).catch(error => {
                 console.log(error);
                 
@@ -23,6 +24,11 @@ class ProductList extends Component{
         }
     }
 
+    selectproductHander = (product:number) => {
+        this.setState({
+            selectedID: product
+        });
+    }
     render() {
         return (
             <div className="App">
@@ -41,7 +47,9 @@ class ProductList extends Component{
                     Object.entries(this.state.products).map((data) => {
                         return (
 
-                            <Product data={data[1]} />
+                           
+                            <Product key={data[0]} data={data[1]} id={data[0]} click={()=> this.selectproductHander(+data[0])}/>
+
                 )
                 
             }) 
