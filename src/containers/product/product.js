@@ -4,7 +4,7 @@ const product = (props) => {
   return (
     <tr onClick={props.click}>
       <td>
-        <Link to={"/view/" + props.id}>{props.data.title}</Link>
+        <Link to={"/view/" + props.data.id}>{props.data.title}</Link>
       </td>
       <td>{props.data.price}</td>
       <td>

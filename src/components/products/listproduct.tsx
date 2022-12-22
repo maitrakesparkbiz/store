@@ -7,13 +7,15 @@ class ProductList extends Component{
 
     state = {
         products: {},
-        selectedID:""
+        selectedID:"",
+        sortBy:"acs",
+        limit:5,
     }
     
     componentDidMount(): void {
         
         if(Object.keys(this.state.products).length === 0){
-            axios.get('https://fakestoreapi.com/products').then(response => {
+            axios.get("https://fakestoreapi.com/products?sort="+this.state.limit+"&limit="+this.state.limit).then(response => {
                 this.setState({
                                 products: response.data
                             });     
@@ -29,9 +31,54 @@ class ProductList extends Component{
             selectedID: product
         });
     }
+
+    sortByClickhandler = (event:any) => {
+        this.setState({
+            sortBy: event.target.value
+                    });     
+        
+        axios.get('https://fakestoreapi.com/products?sort='+event.target.value+"&limit="+this.state.limit).then(response => {
+            this.setState({
+                products: response.data
+            });
+        }).catch(error => {
+            console.log(error);
+            
+        })
+        }
+
+
+        limitClickhandler = (event:any) => {
+            this.setState({
+                limit: event.target.value
+                        });     
+            
+            axios.get('https://fakestoreapi.com/products?limit='+event.target.value+"&sort="+this.state.sortBy).then(response => {
+                this.setState({
+                    products: response.data
+                });
+            }).catch(error => {
+                console.log(error);
+                
+            })
+            }
+
+
     render() {
         return (
             <div className="App">
+                <div >
+                    <select onClick={this.sortByClickhandler}>
+                        <option value="asc">Asc</option>
+                        <option value="desc">Desc</option>
+                    </select>
+                    <select onClick={this.limitClickhandler}>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
                 <table>
                     <thead>
                         <tr>

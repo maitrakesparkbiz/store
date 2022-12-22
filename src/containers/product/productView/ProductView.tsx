@@ -25,7 +25,7 @@ const ProductView = (props:any) => {
       <h2>Product Card</h2>
 
       <div className="card">
-        <img src={product.image} alt="Denim Jeans" />
+        <img src={product.image} className="img" alt="Denim Jeans" />
         <h1>{product.title}</h1>
         <p className="price">${product.price}</p>
         <p>
