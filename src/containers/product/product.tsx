@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const product = (props) => {
+const product = (props:any) => {
   return (
     <tr onClick={props.click}>
       <td>

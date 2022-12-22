@@ -6,10 +6,13 @@ import './App.css';
 import Navigation from './components/Navigation/Navigation';
 import Aux from './hoc/Aux/Aux';
 
+const MyContext = React.createContext({})
+
 function App(props:any) {
   return (
     <Aux>
       <Navigation/>
+      
 <BrowserRouter>
       <Routes>
           <Route path="/"  element={<ProductList/>}/>

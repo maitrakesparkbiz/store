@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Product from '../../containers/product/product';
 import ProdictView from '../../containers/product/productView/ProductView';
-
+import Pagination from '../../containers/pagination/pagination';
 class ProductList extends Component{
 
     state = {
@@ -10,6 +10,8 @@ class ProductList extends Component{
         selectedID:"",
         sortBy:"acs",
         limit:5,
+        total:0,
+        currentPage:1
     }
     
     componentDidMount(): void {
@@ -19,6 +21,14 @@ class ProductList extends Component{
                 this.setState({
                                 products: response.data
                             });     
+            }).catch(error => {
+                console.log(error);
+                
+            })
+            axios.get("https://fakestoreapi.com/products").then(response => {
+                this.setState({
+                    total: Object.keys(response.data).length
+                });
             }).catch(error => {
                 console.log(error);
                 
@@ -63,6 +73,29 @@ class ProductList extends Component{
             })
             }
 
+        paginateClickhandler = (id:any) => {
+
+
+            axios.get("https://fakestoreapi.com/products").then(response => {
+                
+                    let productsPaginated ={};
+                    Object.entries(response.data).forEach(([key, value]) => {
+                        const high=id*this.state.limit;
+                        const low=high-this.state.limit;
+                        if(+key>low && +key<=high){
+                            productsPaginated = {
+                                ...productsPaginated,
+                                value
+                                }
+                        }
+                    })
+                    console.log(productsPaginated);
+                    
+            }).catch(error => {
+                console.log(error);
+                
+            })
+        }
 
     render() {
         return (
@@ -100,10 +133,12 @@ class ProductList extends Component{
                 )
                 
             }) 
-        }
+        }    
     </tbody>
         </table>
-            </div>)
+        <Pagination total={this.state.total} limit={this.state.limit} currentPage={this.state.currentPage} paginate={this.paginateClickhandler}/>
+            </div>
+            )
         }
 }
 
