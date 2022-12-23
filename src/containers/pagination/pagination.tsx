@@ -13,7 +13,7 @@ const pagination = (props:any) => {
             
             return (
                           
-            <button key={count} disabled={count==props.currentPage} onClick={() => props.paginate(count)}>{count}</button>
+            <button key={count}  onClick={() => props.paginate(count)}>{count}</button>
             )
             })}
     </div>

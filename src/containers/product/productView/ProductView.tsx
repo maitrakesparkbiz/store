@@ -10,7 +10,7 @@ const ProductView = (props:any) => {
 
   const [product, setProduct] = useState<User>({image: '',title: '',price: '',description: ''});
   useEffect(() => {
-    axios.get('https://fakestoreapi.com/products/'+param.id).then(response => {
+    axios.get('https://fakestoreapi.com/products/'+props.id).then(response => {
       setProduct(response.data);
   }).catch(error => {
       console.log(error);
@@ -19,9 +19,14 @@ const ProductView = (props:any) => {
   
 
 
+
   
   return (
-    <div>
+
+      
+    <div style={{"position":"fixed","zIndex":"500","backgroundColor":"white","width":"70%","border":"1px solid #ccc","boxShadow":"1px 1px 1px black","padding":"16px","left":"15%","top":"10%","boxSizing":"border-box","transition":"all 0.3s ease-out"}} className="Model">
+      
+    <button type="button" className="close" onClick={props.closeModel} data-dismiss="modal">x</button>
       <h2>Product Card</h2>
 
       <div className="card">
