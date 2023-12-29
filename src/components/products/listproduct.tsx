@@ -4,7 +4,6 @@ import Product from '../../containers/product/product';
 import ProdictView from '../../containers/product/productView/ProductView';
 import Pagination from '../../containers/pagination/pagination';
 import ProductView from '../../containers/product/productView/ProductView'
-import _ from 'lodash';
 import Loader from '../UI/Loader/Loader';
 class ProductList extends Component{
 
